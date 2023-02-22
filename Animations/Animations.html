@@ -1,0 +1,129 @@
+<!Doctype html>
+<html>
+<head>
+	<title>Animations</title>
+	<style>
+		body {
+  			background: lightblue;
+		}
+
+		#myContainer1{
+		  width: 400px;
+		  height: 400px;
+		  position: relative;
+		  margin:auto;
+		  background: DarkSeaGreen;
+		}
+		#myContainer2{
+		  width: 400px;
+		  height: 400px;
+		  position: relative;
+		  background: red;
+		  margin:auto;
+		  top: 40px;
+		}
+		#myAnimation {
+		  width: 50px;
+		  height: 50px;
+		  position: absolute;
+		  background-color: Maroon ;
+		}
+
+		#item {
+		  background: blue;
+		  position: absolute;
+		  height: 75px;
+		  width: 200px;
+		  margin: 100px;
+		}
+		#label{
+			background: white;
+			width: 200px;
+			margin:auto;
+			font-size: 20px;
+			border: 2px dotted blue;
+		}
+		#text{
+			position:relative;
+			bottom: 20px;
+			font-size: 15px;
+			left:47%;
+			top:-10px;
+		}
+		.move{
+			position:relative;
+			left:10%;
+			font-size:25px;
+		}
+	</style>
+</head>
+<body>
+	<div id="label">
+		<h1>Animations</h1>
+	</div>
+	<h2 class = "move">Moving Transitions:</h2>
+  	<button id = "text" onclick="myMove()">Click Me</button> 
+	<div id ="myContainer1">
+	  <div id ="myAnimation"></div>
+	</div>
+	<div id ="myContainer2">
+	  <div id="item"></div>
+	</div>
+	<br><br><br>
+	<h3> Lightbulb Animation: </h3>
+	<img id = "bulb" src = "off.png" width = "100px" height = "180px">
+	<p>
+		<button type="button" onclick=light(1)>Bulb ON</button>
+		<button type="button" onclick=light(0)>Bulb OFF</button>
+	</p>
+	<script>
+		function myMove() {
+	  	var elem = document.getElementById("myAnimation");   
+		var pos = 0;
+		var id = setInterval(frame, 10); /*runs this functions every 10ms*/
+		function frame() {
+		  if (pos == 350) { /*top left corner of animation is at 350 when the lower right touches lower right of container...*/
+		    clearInterval(id);
+		  } else {
+		      pos++; 
+		      elem.style.top = pos + 'px'; 
+		      elem.style.left = pos + 'px'; 
+		    }
+		  }
+		}
+
+		var item = document.getElementById('item');
+		item.animate([ //set of keyframes...
+		    { transform: 'scale(1)', background: 'red', opacity: 1, offset: 0 },
+		    { transform: 'scale(.5) rotate(270deg)', background: 'blue', opacity: .5, offset: .2 }, //takes 20% of the time to go from first to second keyframe...
+		    { transform: 'scale(1) rotate(0deg)', background: 'red', opacity: 1, offset: 1 },
+		  ], {
+		    duration: 2000, //milliseconds
+		    easing: 'ease-in-out', //'linear', a bezier curve, etc.
+		    delay: 10, //milliseconds, how long it waits to run after the pg loads
+		    iterations: Infinity, //or a number
+		    direction: 'alternate', //'normal', 'reverse', etc., this is y it keeps changing the dxn it keeps rotating
+		  });
+
+		function light(show){
+			var pic;
+			if(show == 0){
+				pic = "off.png"
+			}else{
+				pic = "on.png"
+			}
+			document.getElementById("bulb").src = pic;
+		}
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
